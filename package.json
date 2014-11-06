@@ -1,8 +1,8 @@
 {
   "name": "ytility",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Y[et another u]tility!",
-  "main": "source/Utility.js",
+  "main": "source/Ytility.js",
   "scripts": {
     "test": "mocha -R list test/suites/*Suite.js"
   },
