@@ -1,7 +1,7 @@
 var expect = require("expect.js");
-var $ = require("../../source/Ytility");
+var $ = require("../../source/ytility");
 
-describe("Ytility", function() {
+describe("ytility", function() {
 	describe("#capitalize", function() {
 		it("should work properly", function() {
 			expect($.capitalize("hello!")).to.be("Hello!");
@@ -98,6 +98,93 @@ describe("Ytility", function() {
 			expect($.isObject(/^$/)).to.be(true);
 			expect($.isObject(RegExp())).to.be(true);
 			expect($.isObject(new RegExp())).to.be(true);
+		});
+	});
+
+	describe("#define", function() {
+		var definition = {
+			"own": {
+				model: "Mustang",
+				year: "2011",
+				color: "yellow",
+				secret: "???",
+				magic: "!!!"
+			},
+			"readable": ["model", "year"],
+			"public": ["color"],
+			"writable": ["magic"]
+		};
+
+		var breakdown = {
+			"readable": $.union(definition["readable"], definition["public"]),
+			"writable": $.union(definition["writable"], definition["public"])
+		};
+
+		breakdown["read-only"] = $.difference(breakdown["readable"], breakdown["writable"]);
+		breakdown["write-only"] = $.difference(breakdown["writable"], breakdown["readable"]);
+		breakdown["read/write"] = $.intersection(breakdown["readable"], breakdown["writable"]);
+		breakdown["private"] = $.difference(Object.keys(definition["own"]), breakdown["readable"].concat(breakdown["writable"]));
+
+		function Car(values) {
+			var self = $.define(this, definition);
+
+			var own = self.own;
+
+			$.forOwn(values, function(value, property) {
+				own[property] = value;
+			});
+		}
+
+		var car = new Car();
+
+		it("should deal with readable properties properly", function() {
+			breakdown["readable"].forEach(function(property) {
+				expect(car.hasOwnProperty(property)).to.be(true);
+				expect(car[property]).to.be(definition["own"][property]);
+			});
+		});
+
+		it("should deal with read-only properties properly", function() {
+			breakdown["read-only"].forEach(function(property) {
+				expect(car.hasOwnProperty(property)).to.be(true);
+				var value = car[property];
+				car[property] = "Whatever";
+				expect(car[property]).to.be(value);
+			});
+		});
+
+		it("should deal with writable properties properly", function() {
+			breakdown["writable"].forEach(function(property) {
+				expect(car.hasOwnProperty(property)).to.be(true);
+				car[property] = "Whatever";
+				expect(car.own[property]).to.be("Whatever");
+			});
+		});
+
+		it("should deal with write-only properties properly", function() {
+			breakdown["write-only"].forEach(function(property) {
+				expect(car.hasOwnProperty(property)).to.be(true);
+				car[property] = "Whatever";
+				expect(car[property]).to.be(undefined);
+			});
+		});
+
+		it("should deal with read/write properties properly", function() {
+			breakdown["read/write"].forEach(function(property) {
+				expect(car.hasOwnProperty(property)).to.be(true);
+				car[property] = "Whatever";
+				expect(car[property]).to.be("Whatever");
+			});
+		});
+
+		it("should deal with private properties properly", function() {
+			breakdown["private"].forEach(function(property) {
+				expect(car.hasOwnProperty(property)).to.be(false);
+				expect(car[property]).to.be(undefined);
+				car[property] = "Whatever";
+				// Here, regular public property creation happens.
+				expect(car[property]).to.be("Whatever");
+			});
 		});
 	});
 });

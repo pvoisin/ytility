@@ -6,24 +6,29 @@
     "utility",
     "helper"
   ],
-  "main": "source/ytility.js",
+  "main": "distribution/browser/ytility.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/pvoisin/ytility.git"
   },
-  "author": "Pierre Voisin <pierre.voisin@gmail.com>",
+  "authors": [
+    "Pierre Voisin <pierre.voisin@gmail.com>"
+  ],
   "license": "MIT",
   "dependencies": {
     "lodash": "~2.4.1",
     "xregexp": "~2.0.0"
   },
+  "ignore": [
+    ".*",
+    "node_modules",
+    "bower_components",
+    "source",
+    "test",
+    "package.json",
+    "Gruntfile.js"
+  ],
   "devDependencies": {
-    "mocha": "~2.0.1",
-    "grunt": "~0.4.5",
-    "grunt-browserify": "~3.2.1",
-    "grunt-contrib-connect": "~0.9.0"
-  },
-  "scripts": {
-    "test": "mocha -R list test/suites/*Suite.js"
+    "mocha": "~2.0.1"
   }
 }
