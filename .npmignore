@@ -1,4 +1,6 @@
 test
 distribution
 bower.json
+bower_components
 Gruntfile.js
+.*

@@ -103,7 +103,7 @@ describe("ytility", function() {
 
 	describe("#define", function() {
 		var definition = {
-			"own": {
+			"own:private": {
 				model: "Mustang",
 				year: "2011",
 				color: "yellow",
@@ -115,7 +115,9 @@ describe("ytility", function() {
 			"writable": ["magic"]
 		};
 
+		var ownValues = definition["own:private"];
 		var breakdown = {
+			"own": Object.keys(definition["own:private"]),
 			"readable": $.union(definition["readable"], definition["public"]),
 			"writable": $.union(definition["writable"], definition["public"])
 		};
@@ -123,12 +125,12 @@ describe("ytility", function() {
 		breakdown["read-only"] = $.difference(breakdown["readable"], breakdown["writable"]);
 		breakdown["write-only"] = $.difference(breakdown["writable"], breakdown["readable"]);
 		breakdown["read/write"] = $.intersection(breakdown["readable"], breakdown["writable"]);
-		breakdown["private"] = $.difference(Object.keys(definition["own"]), breakdown["readable"].concat(breakdown["writable"]));
+		breakdown["private"] = $.difference(breakdown["own"], breakdown["readable"].concat(breakdown["writable"]));
 
 		function Car(values) {
 			var self = $.define(this, definition);
 
-			var own = self.own;
+			var own = self["private"];
 
 			$.forOwn(values, function(value, property) {
 				own[property] = value;
@@ -140,7 +142,7 @@ describe("ytility", function() {
 		it("should deal with readable properties properly", function() {
 			breakdown["readable"].forEach(function(property) {
 				expect(car.hasOwnProperty(property)).to.be(true);
-				expect(car[property]).to.be(definition["own"][property]);
+				expect(car[property]).to.be(ownValues[property]);
 			});
 		});
 
@@ -157,7 +159,7 @@ describe("ytility", function() {
 			breakdown["writable"].forEach(function(property) {
 				expect(car.hasOwnProperty(property)).to.be(true);
 				car[property] = "Whatever";
-				expect(car.own[property]).to.be("Whatever");
+				expect(car["private"][property]).to.be("Whatever");
 			});
 		});
 
@@ -185,6 +187,27 @@ describe("ytility", function() {
 				// Here, regular public property creation happens.
 				expect(car[property]).to.be("Whatever");
 			});
+		});
+
+		it("should throw errors for undefined properties", function() {
+			expect(function() {
+				$.define({}, {
+					"own": {},
+					"readable": ["thing"],
+					"public": ["unknown"],
+					"writable": ["questionable"]
+				});
+			}).to.throwError(/^Unknown property/);
+		});
+
+		it("should throw errors for invalid definition", function() {
+			expect(function() {
+				$.define({}, {
+					"readable": ["thing"],
+					"public": ["unknown"],
+					"writable": ["questionable"]
+				});
+			}).to.throwError(/^Invalid definition/);
 		});
 	});
 });
