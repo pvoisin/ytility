@@ -89,6 +89,57 @@ helper.mixin({
 		}
 
 		return self;
+	},
+
+	inherit: require("util").inherits,
+
+	error: function error(initialize) {
+		if(!initialize) {
+			throw new Error("Invalid parameters!");
+		}
+
+		var name;
+
+		if(typeof initialize === "function") {
+			name = initialize.name;
+		}
+		else {
+			name = String(initialize);
+			initialize = undefined;
+		}
+
+		if(!name) {
+			throw new Error("Error should named!");
+		}
+
+		var constructor = function(message) {
+			Error.call(this);
+			this.message = message;
+			this.name = name;
+			Error.captureStackTrace(this, arguments.callee);
+
+			initialize && initialize.apply(this, arguments);
+		};
+
+		constructor.prototype = new Error();
+
+		return constructor;
+	},
+
+	delegate: function delegate(object, provider) {
+		helper.forOwn(provider, function(value, property) {
+			if(!object.hasOwnProperty(property)) {
+				Object.defineProperty(object, property, {
+					get: function() {
+						return provider[property];
+					},
+
+					set: function(value) {
+						provider[property] = value;
+					}
+				});
+			}
+		});
 	}
 });
 
