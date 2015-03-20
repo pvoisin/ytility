@@ -10032,20 +10032,28 @@ helper.mixin({
 		return constructor;
 	},
 
-	delegate: function delegate(object, provider) {
-		helper.forOwn(provider, function(value, property) {
+	proxy: function proxy(object, target) {
+		helper.forOwn(target, function(value, property) {
 			if(!object.hasOwnProperty(property)) {
 				Object.defineProperty(object, property, {
 					get: function() {
-						return provider[property];
+						return target[property];
 					},
 
 					set: function(value) {
-						provider[property] = value;
+						target[property] = value;
 					}
 				});
 			}
 		});
+	},
+
+	alias: function alias(object, mapping) {
+		for(var key in mapping) {
+			object[key] = object[mapping[key]];
+		}
+
+		return object;
 	}
 });
 
