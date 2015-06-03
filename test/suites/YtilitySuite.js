@@ -1,103 +1,103 @@
 var expect = require("expect.js");
-var $ = require("../../source/ytility");
+var y = require("../../source/ytility");
 
 describe("ytility", function() {
 	describe("#capitalize", function() {
 		it("should work properly", function() {
-			expect($.capitalize("hello!")).to.be("Hello!");
-			expect($.capitalize("HELLO!")).to.be("HELLO!");
+			expect(y.capitalize("hello!")).to.be("Hello!");
+			expect(y.capitalize("HELLO!")).to.be("HELLO!");
 		});
 	});
 
 	describe("#camelize", function() {
 		it("should work properly", function() {
-			expect($.camelize("Salut, ça va ?")).to.be("SalutÇaVa");
-			expect($.camelize("SalutÇaVa")).to.be("SalutÇaVa");
-			expect($.camelize("a b c d e f")).to.be("aBCDEF");
-			expect($.camelize("(aaa,bbb,ccc,ddd,eee,fff)")).to.be("AaaBbbCccDddEeeFff");
+			expect(y.camelize("Salut, ça va ?")).to.be("SalutÇaVa");
+			expect(y.camelize("SalutÇaVa")).to.be("SalutÇaVa");
+			expect(y.camelize("a b c d e f")).to.be("aBCDEF");
+			expect(y.camelize("(aaa,bbb,ccc,ddd,eee,fff)")).to.be("AaaBbbCccDddEeeFff");
 		});
 	});
 
 	describe("#isDefined", function() {
 		it("should work properly", function() {
-			expect($.isDefined(undefined)).to.be(false);
-			expect($.isDefined(null)).to.be(true);
+			expect(y.isDefined(undefined)).to.be(false);
+			expect(y.isDefined(null)).to.be(true);
 
-			expect($.isDefined(false)).to.be(true);
-			expect($.isDefined(true)).to.be(true);
-			expect($.isDefined(Boolean(false))).to.be(true);
-			expect($.isDefined(new Boolean(false))).to.be(true);
-			expect($.isDefined(Boolean(true))).to.be(true);
-			expect($.isDefined(new Boolean(true))).to.be(true);
+			expect(y.isDefined(false)).to.be(true);
+			expect(y.isDefined(true)).to.be(true);
+			expect(y.isDefined(Boolean(false))).to.be(true);
+			expect(y.isDefined(new Boolean(false))).to.be(true);
+			expect(y.isDefined(Boolean(true))).to.be(true);
+			expect(y.isDefined(new Boolean(true))).to.be(true);
 
-			expect($.isDefined(NaN)).to.be(true);
-			expect($.isDefined(123)).to.be(true);
-			expect($.isDefined(Number(123))).to.be(true);
-			expect($.isDefined(new Number(123))).to.be(true);
+			expect(y.isDefined(NaN)).to.be(true);
+			expect(y.isDefined(123)).to.be(true);
+			expect(y.isDefined(Number(123))).to.be(true);
+			expect(y.isDefined(new Number(123))).to.be(true);
 
-			expect($.isDefined("")).to.be(true);
-			expect($.isDefined(String(""))).to.be(true);
-			expect($.isDefined(new String(""))).to.be(true);
+			expect(y.isDefined("")).to.be(true);
+			expect(y.isDefined(String(""))).to.be(true);
+			expect(y.isDefined(new String(""))).to.be(true);
 
-			expect($.isDefined({})).to.be(true);
-			expect($.isDefined(Object())).to.be(true);
-			expect($.isDefined(new Object())).to.be(true);
+			expect(y.isDefined({})).to.be(true);
+			expect(y.isDefined(Object())).to.be(true);
+			expect(y.isDefined(new Object())).to.be(true);
 
-			expect($.isDefined([])).to.be(true);
-			expect($.isDefined(Array())).to.be(true);
-			expect($.isDefined(new Array())).to.be(true);
+			expect(y.isDefined([])).to.be(true);
+			expect(y.isDefined(Array())).to.be(true);
+			expect(y.isDefined(new Array())).to.be(true);
 
-			expect($.isDefined(new Date())).to.be(true);
+			expect(y.isDefined(new Date())).to.be(true);
 
-			expect($.isDefined(function() {})).to.be(true);
-			expect($.isDefined(Function())).to.be(true);
-			expect($.isDefined(new Function())).to.be(true);
+			expect(y.isDefined(function() {})).to.be(true);
+			expect(y.isDefined(Function())).to.be(true);
+			expect(y.isDefined(new Function())).to.be(true);
 
-			expect($.isDefined(/^$/)).to.be(true);
-			expect($.isDefined(RegExp())).to.be(true);
-			expect($.isDefined(new RegExp())).to.be(true);
+			expect(y.isDefined(/^$/)).to.be(true);
+			expect(y.isDefined(RegExp())).to.be(true);
+			expect(y.isDefined(new RegExp())).to.be(true);
 		});
 	});
 
 	describe("#isObject", function() {
 		it("should work properly", function() {
-			expect($.isObject(undefined)).to.be(false);
-			expect($.isObject(null)).to.be(false);
+			expect(y.isObject(undefined)).to.be(false);
+			expect(y.isObject(null)).to.be(false);
 
-			expect($.isObject(false)).to.be(false);
-			expect($.isObject(true)).to.be(false);
-			expect($.isObject(Boolean(false))).to.be(false);
-			expect($.isObject(new Boolean(false))).to.be(true);
-			expect($.isObject(Boolean(true))).to.be(false);
-			expect($.isObject(new Boolean(true))).to.be(true);
+			expect(y.isObject(false)).to.be(false);
+			expect(y.isObject(true)).to.be(false);
+			expect(y.isObject(Boolean(false))).to.be(false);
+			expect(y.isObject(new Boolean(false))).to.be(true);
+			expect(y.isObject(Boolean(true))).to.be(false);
+			expect(y.isObject(new Boolean(true))).to.be(true);
 
-			expect($.isObject(NaN)).to.be(false);
-			expect($.isObject(123)).to.be(false);
-			expect($.isObject(Number(123))).to.be(false);
-			expect($.isObject(new Number(123))).to.be(true);
+			expect(y.isObject(NaN)).to.be(false);
+			expect(y.isObject(123)).to.be(false);
+			expect(y.isObject(Number(123))).to.be(false);
+			expect(y.isObject(new Number(123))).to.be(true);
 
-			expect($.isObject("")).to.be(false);
-			expect($.isObject(String(""))).to.be(false);
-			expect($.isObject(new String(""))).to.be(true);
+			expect(y.isObject("")).to.be(false);
+			expect(y.isObject(String(""))).to.be(false);
+			expect(y.isObject(new String(""))).to.be(true);
 
-			expect($.isObject({})).to.be(true);
-			expect($.isObject(Object())).to.be(true);
-			expect($.isObject(new Object())).to.be(true);
+			expect(y.isObject({})).to.be(true);
+			expect(y.isObject(Object())).to.be(true);
+			expect(y.isObject(new Object())).to.be(true);
 
-			expect($.isObject([])).to.be(true);
-			expect($.isObject(Array())).to.be(true);
-			expect($.isObject(new Array())).to.be(true);
+			expect(y.isObject([])).to.be(true);
+			expect(y.isObject(Array())).to.be(true);
+			expect(y.isObject(new Array())).to.be(true);
 
-			expect($.isObject(Date())).to.be(false); // string
-			expect($.isObject(new Date())).to.be(true);
+			expect(y.isObject(Date())).to.be(false); // string
+			expect(y.isObject(new Date())).to.be(true);
 
-			expect($.isObject(function() {})).to.be(true);
-			expect($.isObject(Function())).to.be(true);
-			expect($.isObject(new Function())).to.be(true);
+			expect(y.isObject(function() {})).to.be(true);
+			expect(y.isObject(Function())).to.be(true);
+			expect(y.isObject(new Function())).to.be(true);
 
-			expect($.isObject(/^$/)).to.be(true);
-			expect($.isObject(RegExp())).to.be(true);
-			expect($.isObject(new RegExp())).to.be(true);
+			expect(y.isObject(/^$/)).to.be(true);
+			expect(y.isObject(RegExp())).to.be(true);
+			expect(y.isObject(new RegExp())).to.be(true);
 		});
 	});
 
@@ -118,21 +118,21 @@ describe("ytility", function() {
 		var ownValues = definition["own:private"];
 		var breakdown = {
 			"own": Object.keys(definition["own:private"]),
-			"readable": $.union(definition["readable"], definition["public"]),
-			"writable": $.union(definition["writable"], definition["public"])
+			"readable": y.union(definition["readable"], definition["public"]),
+			"writable": y.union(definition["writable"], definition["public"])
 		};
 
-		breakdown["read-only"] = $.difference(breakdown["readable"], breakdown["writable"]);
-		breakdown["write-only"] = $.difference(breakdown["writable"], breakdown["readable"]);
-		breakdown["read/write"] = $.intersection(breakdown["readable"], breakdown["writable"]);
-		breakdown["private"] = $.difference(breakdown["own"], breakdown["readable"].concat(breakdown["writable"]));
+		breakdown["read-only"] = y.difference(breakdown["readable"], breakdown["writable"]);
+		breakdown["write-only"] = y.difference(breakdown["writable"], breakdown["readable"]);
+		breakdown["read/write"] = y.intersection(breakdown["readable"], breakdown["writable"]);
+		breakdown["private"] = y.difference(breakdown["own"], breakdown["readable"].concat(breakdown["writable"]));
 
 		function Car(values) {
-			var self = $.define(this, definition);
+			var self = y.define(this, definition);
 
 			var own = self["private"];
 
-			$.forOwn(values, function(value, property) {
+			y.forOwn(values, function(value, property) {
 				own[property] = value;
 			});
 		}
@@ -191,7 +191,7 @@ describe("ytility", function() {
 
 		it("should throw errors for undefined properties", function() {
 			expect(function() {
-				$.define({}, {
+				y.define({}, {
 					"own": {},
 					"readable": ["thing"],
 					"public": ["unknown"],
@@ -202,7 +202,7 @@ describe("ytility", function() {
 
 		it("should throw errors for invalid definition", function() {
 			expect(function() {
-				$.define({}, {
+				y.define({}, {
 					"readable": ["thing"],
 					"public": ["unknown"],
 					"writable": ["questionable"]

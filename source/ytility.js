@@ -1,4 +1,4 @@
-var helper = require("lodash");
+var helper = require("./helper");
 var XRegExp = require("xregexp").XRegExp;
 
 var isObject = helper.isObject;

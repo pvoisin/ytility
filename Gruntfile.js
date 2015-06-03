@@ -1,36 +1,17 @@
 module.exports = function(grunt) {
 	grunt.initConfig({
-		browserify: {
-			build: {
+		mochaTest: {
+			test: {
 				options: {
-					browserifyOptions: {
-						standalone: "ytility"
-					}
+					reporter: "spec"
 				},
-				files: {"distribution/browser/ytility.js": ["source/ytility.js"]}
-			}
-		},
 
-		connect: {
-			options: {
-				hostname: "*"
-			},
-
-			development: {
-				options: {
-					base: ".",
-					keepalive: true,
-					port: 8080
-				}
+				src: ["test/suites/**/*.js"]
 			}
 		}
 	});
 
-	grunt.registerTask("build", ["browserify:build"]);
-	grunt.registerTask("server", ["connect:development"]);
+	grunt.registerTask("test", ["mochaTest"]);
 
-	grunt.registerTask("default", ["build"]);
-
-	grunt.loadNpmTasks("grunt-browserify");
-	grunt.loadNpmTasks("grunt-contrib-connect");
+	grunt.loadNpmTasks("grunt-mocha-test");
 };
