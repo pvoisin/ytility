@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+		<title>Mocha</title>
+
+		<link rel="shortcut icon" href="assets/favicon.ico"/>
+		<link rel="stylesheet" type="text/css" href="assets/styles/mocha.css"/>
+
+		<script src="assets/scripts/mocha.js"></script>
+	</head>
+	<body>
+		<div id="mocha"></div>
+
+		<script src="assets/scripts/require.js"></script>
+
+		<script src="assets/scripts/expect.js"></script>
+		<script src="assets/scripts/sinon.js"></script>
+
+		<script>
+			mocha.setup("bdd");
+
+			require.config({
+				paths: {
+					"lodash": "/bower_components/lodash/lodash.min",
+					"xregexp": "/bower_components/xregexp/xregexp-all",
+					"ytility": "/source/ytility"
+				},
+				shim: {
+					"xregexp": {exports: "XRegExp"}
+				}
+			});
+
+			var specifications = [
+				"/test/suites/YtilitySuite.js"
+			];
+
+			require(specifications, function() {
+				if(/(\?|&)check-globals\b/.test(window.location.search)) {
+					mocha.checkLeaks();
+				}
+
+				mocha.run();
+			});
+		</script>
+	</body>
+</html>

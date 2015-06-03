@@ -1,22 +1,22 @@
 {
   "name": "ytility",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "Y[et another u]tility!",
   "keywords": [
     "utility",
     "helper"
   ],
-  "main": "distribution/browser/ytility.js",
+  "main": "distribution/ytility.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pvoisin/ytility.git"
+    "url": "https://github.com/pvoisin/ytility.git#bower"
   },
   "authors": [
     "Pierre Voisin <pierre.voisin@gmail.com>"
   ],
   "license": "MIT",
   "dependencies": {
-    "lodash": "~2.4.1",
+    "lodash": "~3.9.3",
     "xregexp": "~2.0.0"
   },
   "ignore": [
@@ -29,6 +29,9 @@
     "Gruntfile.js"
   ],
   "devDependencies": {
-    "mocha": "~2.0.1"
+    "mocha": "~2.2.5",
+    "requirejs": "~2.1.18",
+    "expect": "~0.3.1",
+    "sinon": "http://sinonjs.org/releases/sinon-1.15.0.js"
   }
 }

@@ -1,36 +1,52 @@
 module.exports = function(grunt) {
 	grunt.initConfig({
-		browserify: {
+		uglify: {
 			build: {
 				options: {
-					browserifyOptions: {
-						standalone: "ytility"
-					}
+					sourceMap: true,
+					sourceMapName: "distribution/ytility.js.map"
 				},
-				files: {"distribution/browser/ytility.js": ["source/ytility.js"]}
+				files: {
+					"distribution/ytility.js": ["source/ytility.js"]
+				}
 			}
 		},
 
 		connect: {
 			options: {
-				hostname: "*"
+				hostname: "*",
+				base: ".",
+				keepalive: true,
+				port: 8080
 			},
 
 			development: {
+			},
+
+			test:  {
 				options: {
-					base: ".",
-					keepalive: true,
-					port: 8080
+					keepalive: false,
+					port: 8888
+				}
+			}
+		},
+
+		mocha: {
+			test: {
+				options: {
+					urls: ["http://localhost:8888/test/framework/runner.html"]
 				}
 			}
 		}
 	});
 
-	grunt.registerTask("build", ["browserify:build"]);
+	grunt.registerTask("build", ["uglify:build"]);
 	grunt.registerTask("server", ["connect:development"]);
+	grunt.registerTask("test", ["connect:test", "mocha"]);
 
 	grunt.registerTask("default", ["build"]);
 
-	grunt.loadNpmTasks("grunt-browserify");
+	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("grunt-contrib-connect");
+	grunt.loadNpmTasks("grunt-mocha");
 };

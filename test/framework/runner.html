@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+		<title>Mocha</title>
+
+		<link rel="shortcut icon" href="assets/favicon.ico"/>
+		<link rel="stylesheet" type="text/css" href="assets/styles/mocha.css"/>
+
+		<script src="assets/scripts/mocha.js"></script>
+	</head>
+	<body>
+		<div id="mocha"></div>
+
+		<script src="../../bower_components/lodash/lodash.js"></script>
+		<script src="../../bower_components/xregexp/xregexp-all.js"></script>
+
+		<!--<script src="../../source/ytility.js"></script>-->
+
+		<script>
+			if(/(\?|&)production\b/.test(window.location.search)) {
+				document.write("<scr" + "ipt src=\"../../distribution/ytility.js\"></scr" + "ipt>");
+			}
+			else {
+				document.write("<scr" + "ipt src=\"../../source/ytility.js\"></scr" + "ipt>");
+			}
+		</script>
+
+		<script src="assets/scripts/expect.js"></script>
+		<script src="assets/scripts/sinon.js"></script>
+
+		<script>
+			mocha.setup("bdd");
+
+			var resolver = {
+				"ytility": _
+			};
+
+			function define(modules, callback) {
+				return callback.apply(this, modules.map(function(module) {
+					return resolver[module];
+				}));
+			}
+		</script>
+
+		<script src="../suites/YtilitySuite.js"></script>
+
+		<script>
+			if(/(\?|&)check-globals\b/.test(window.location.search)) {
+				mocha.checkLeaks();
+			}
+
+			mocha.run();
+		</script>
+	</body>
+</html>
