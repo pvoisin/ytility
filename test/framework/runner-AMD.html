@@ -25,7 +25,7 @@
 				paths: {
 					"lodash": "/bower_components/lodash/lodash.min",
 					"xregexp": "/bower_components/xregexp/xregexp-all",
-					"ytility": "/source/ytility"
+					"ytility": (/(\?|&)production\b/.test(window.location.search) ? "/distribution" : "/source") + "/browser/ytility"
 				},
 				shim: {
 					"xregexp": {exports: "XRegExp"}

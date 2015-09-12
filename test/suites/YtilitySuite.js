@@ -1,4 +1,4 @@
-define(["ytility"], function(y) {
+require(["ytility"], function(y) {
 	describe("ytility", function() {
 		describe("#capitalize", function() {
 			it("should work properly", function() {

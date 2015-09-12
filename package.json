@@ -1,10 +1,12 @@
 {
   "name": "ytility",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Y[et another u]tility!",
   "keywords": [
     "utility",
-    "helper"
+    "helper",
+    "lodash",
+    "underscore"
   ],
   "main": "source/ytility.js",
   "repository": {
@@ -23,6 +25,6 @@
     "grunt-mocha": "^0.4.12"
   },
   "scripts": {
-    "test": "mocha -R list test/suites/*Suite.js"
+    "test": "echo '-> http://localhost:8080/test/framework/runner.html\n' && grunt connect:development"
   }
 }

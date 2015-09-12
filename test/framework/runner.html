@@ -16,11 +16,13 @@
 		<script src="../../bower_components/lodash/lodash.js"></script>
 		<script src="../../bower_components/xregexp/xregexp-all.js"></script>
 
-		<!--<script src="../../source/ytility.js"></script>-->
 
 		<script>
 			if(/(\?|&)production\b/.test(window.location.search)) {
-				document.write("<scr" + "ipt src=\"../../distribution/ytility.js\"></scr" + "ipt>");
+				document.write("<scr" + "ipt src=\"../../distribution/browser/ytility.js\"></scr" + "ipt>");
+			}
+			else if(/(\?|&)release\b/.test(window.location.search)) {
+				document.write("<scr" + "ipt src=\"../../bower_components/ytility/distribution/browser/ytility.js\"></scr" + "ipt>");
 			}
 			else {
 				document.write("<scr" + "ipt src=\"../../source/ytility.js\"></scr" + "ipt>");
@@ -31,15 +33,17 @@
 		<script src="assets/scripts/sinon.js"></script>
 
 		<script>
+			var global = this;
+
 			mocha.setup("bdd");
 
 			var resolver = {
-				"ytility": _
+				"ytility": y
 			};
 
-			function define(modules, callback) {
+			function require(modules, callback) {
 				return callback.apply(this, modules.map(function(module) {
-					return resolver[module];
+					return resolver[module] || global[module];
 				}));
 			}
 		</script>

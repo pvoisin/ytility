@@ -4,10 +4,10 @@ module.exports = function(grunt) {
 			build: {
 				options: {
 					sourceMap: true,
-					sourceMapName: "distribution/ytility.js.map"
+					sourceMapName: "distribution/browser/ytility.js.map"
 				},
 				files: {
-					"distribution/ytility.js": ["source/ytility.js"]
+					"distribution/browser/ytility.js": ["source/ytility.js"]
 				}
 			}
 		},
