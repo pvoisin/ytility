@@ -1,10 +1,12 @@
 {
   "name": "ytility",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Y[et another u]tility!",
   "keywords": [
     "utility",
-    "helper"
+    "helper",
+    "lodash",
+    "underscore"
   ],
   "main": "source/ytility.js",
   "repository": {

@@ -1,15 +1,17 @@
 {
   "name": "ytility",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Y[et another u]tility!",
   "keywords": [
     "utility",
-    "helper"
+    "helper",
+    "lodash",
+    "underscore"
   ],
   "main": "distribution/browser/ytility.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pvoisin/ytility.git#bower"
+    "url": "https://github.com/pvoisin/ytility.git"
   },
   "authors": [
     "Pierre Voisin <pierre.voisin@gmail.com>"

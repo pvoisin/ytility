@@ -27,56 +27,62 @@ helper.mixin({
 	},
 
 	"define": function define(self, definition) {
-		var defaultScope = "own";
-		var scope = helper.find(Object.keys(definition), function(key) {
-			return key === defaultScope || key.substr(0, defaultScope.length + 1) === defaultScope + ":";
+		var defaultOwnScopeKey = "own";
+		var ownScopeKey = helper.find(Object.keys(definition), function(key) {
+			return key === defaultOwnScopeKey || key.substr(0, defaultOwnScopeKey.length + 1) === defaultOwnScopeKey + ":";
 		});
 
-		if(!scope && helper.isEmpty(definition[scope])) {
+		if(!ownScopeKey && helper.isEmpty(definition[ownScopeKey])) {
 			throw new Error("Invalid definition!");
 		}
 
-		var values = definition[scope];
-		if(scope !== defaultScope) {
-			scope = scope.split(defaultScope + ":")[1];
+		var values = definition[ownScopeKey];
+		if(ownScopeKey !== defaultOwnScopeKey) {
+			ownScopeKey = ownScopeKey.split(defaultOwnScopeKey + ":")[1];
 		}
 
-		Object.defineProperty(self, scope, {
+		Object.defineProperty(self, ownScopeKey, {
 			enumerable: false,
 			value: values
 		});
 
-		var own = self[scope];
+		var own = self[ownScopeKey];
 
+		this.expose(self, own, helper.omit(definition, ownScopeKey));
+
+		return self;
+	},
+
+	"expose": function expose(destination, source, definition) {
 		var readable = helper.unique(helper.union(definition["readable"], definition["public"]));
 		var writable = helper.unique(helper.union(definition["writable"], definition["public"]));
 
 		var descriptors = {};
-		for(var property in own) {
+		for(var property in source) {
 			descriptors[property] = {};
 		}
 
 		readable.forEach(function(property) {
-			if(!(property in own)) {
+			if(!(property in source)) {
 				throw new Error("Unknown property: \"" + property + "\".");
 			}
 
 			descriptors[property]["get"] = function() {
-				return own[property];
+				return source[property];
 			};
 		});
 
 		writable.forEach(function(property) {
-			if(!(property in own)) {
+			if(!(property in source)) {
 				throw new Error("Unknown property: \"" + property + "\".");
 			}
 
 			descriptors[property]["set"] = function(value) {
-				return own[property] = value;
+				return source[property] = value;
 			};
 		});
 
-		for(property in own) {
+		for(property in source) {
 			var descriptor = descriptors[property];
 			if(!helper.isEmpty(descriptor)) {
 				descriptor["enumerable"] = false;
@@ -84,16 +90,16 @@ helper.mixin({
 					descriptor["enumerable"] = true;
 				}
 
-				Object.defineProperty(self, property, descriptor);
+				Object.defineProperty(destination, property, descriptor);
 			}
 		}
 
-		return self;
+		return destination;
 	},
 
-	inherit: require("util").inherits,
+	"inherit": require("util").inherits,
 
-	error: function error(initialize) {
+	"error": function error(initialize) {
 		if(!initialize) {
 			throw new Error("Invalid parameters!");
 		}
@@ -126,7 +132,7 @@ helper.mixin({
 		return constructor;
 	},
 
-	proxy: function proxy(object, target) {
+	"proxy": function proxy(object, target) {
 		helper.forOwn(target, function(value, property) {
 			if(!object.hasOwnProperty(property)) {
 				Object.defineProperty(object, property, {
@@ -142,7 +148,7 @@ helper.mixin({
 		});
 	},
 
-	alias: function alias(object, mapping) {
+	"alias": function alias(object, mapping) {
 		for(var key in mapping) {
 			object[key] = object[mapping[key]];
 		}
