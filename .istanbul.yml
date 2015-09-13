@@ -5,4 +5,4 @@ instrumentation:
         - .js
     excludes: ["helper.js"]
 reporting:
-    dir: ./.coverage
+    dir: .coverage
