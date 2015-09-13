@@ -1,5 +1,6 @@
 test
 distribution
+.coverage
 bower.json
 bower_components
 Gruntfile.js

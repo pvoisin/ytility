@@ -1,3 +1,4 @@
+![Build Status](https://travis-ci.org/pvoisin/ytility.svg?branch=master)
 **Y**[et another u]**tility**!
 ==============================
 Yes.

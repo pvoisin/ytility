@@ -20,6 +20,8 @@
     "xregexp": "~2.0.0"
   },
   "devDependencies": {
+    "coveralls": "^2.11.4",
+    "expect.js": "^0.3.1",
     "grunt": "~0.4.5",
     "grunt-mocha-test": "^0.12.7"
   },
